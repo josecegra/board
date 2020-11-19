@@ -6,11 +6,26 @@ from django.urls import reverse
 from django.http import HttpResponse
 from .models import Question, Choice
 
+from django.shortcuts import render
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
-    return render(request, 'board/index.html', context)
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'board/index.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'board/index.html')
+
+
+# def index(request):
+#     latest_question_list = Question.objects.order_by('-pub_date')[:5]
+#     context = {'latest_question_list': latest_question_list}
+#     return render(request, 'board/index.html', context)
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
