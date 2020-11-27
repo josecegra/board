@@ -1,0 +1,21 @@
+.drop-zone{
+    max-width: 200px;
+    height:200px;
+    padding: 25px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    color: #cccccc;
+    border: 4px dashed #009578;
+    border-radius: 10px;
+}
+
+.drop-zone__over{
+    border-style: solid;
+}
+
+.drop-zone__input{
+    display: none;
+}

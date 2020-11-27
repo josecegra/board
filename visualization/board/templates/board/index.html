@@ -1,19 +1,74 @@
+<!DOCTYPE html>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="{{len_image_list}}">
-    <button type="submit">Upload</button>
-</form>
+<html>
+    <head>
+        {% load static %}
+         
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <title>Image dashboard</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'board/style.css' %}">
+        <script rel="stylesheet" src="{% static 'board/functions.js' %}"></script> 
+        <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
+        <style>
+
+        </style>
+    </head>
+    <body>
+
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="img">
+            <button class= "btn" type="submit" name="upload_img">Upload</button>
+        </form>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="path">
+            <button type="submit">Directory</button>
+        </form>
+
+        <div class="drop-zone">
+            <span class="drop-zone__promt">Drop file here or click to download</span>
+            <input type="file" name="myFile" class="drop-zone__input">
+        </div>
+
+
+        <!--
+        <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+            <p>Drag one or more files to this Drop Zone ...</p>
+        </div>
+        -->
+
+
+        {% if uploaded_file_url %}
+        <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+        {% endif %}
+
+        <p> Number of images: {{len_image_list}}</p>
 
 
 
-{% if uploaded_file_url %}
-<p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-{% endif %}
+        <div class="container">
+            <div class="row">
+                {% for img in image_list %}
 
-<p> Number of images: {{len_image_list}}</p>
+                    <div class="col">
+                        <a href="/board/{{ img.id }}/">
+                            <img src="{{img.image_url}}" alt="{{img.name}}" width="224" height="224">
+                        </a>
+                    </div>
 
-{% for img in image_list %}
-    <a href="/board/{{ img.id }}/"><img src="{{img.image_url}}" alt="{{img.name}}" width="500" height="600"></a>
-{% endfor %}
+                    {% if forloop.counter0 == 3 %}
+                        <div class="w-100"></div>
+                    {% endif %}
 
+                {% endfor %}
+            </div>
+        </div>
+
+    </body>
+</html>
