@@ -1,0 +1,27 @@
+{% extends "board/base.html" %}
+
+
+{% block content %}
+
+        <p> Number of images: {{len_image_list}}</p>
+
+        <div class="container">
+            <div class="row">
+                {% for img in image_list %}
+
+                    <div class="col">
+                        
+                        <img src="{{img.image_url}}" alt="asdf" width="224" height="224">
+                        
+                    </div>
+
+                    {% if forloop.counter0 == 3 %}
+                        <div class="w-100"></div>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+
+{% endblock %}
+

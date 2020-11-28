@@ -40,9 +40,14 @@ def index(request):
     {'len_image_list':len_image_list,
     'image_list':image_list
     })
-def base(request):
-    context = {}
-    return render(request, 'board/child.html', context)
+    
+def explorer(request):
+    image_list = ImageModel.objects.all()
+    len_image_list = len(image_list)
+    return render(request, 'board/child.html',
+    {'len_image_list':len_image_list,
+    'image_list':image_list
+    })
 
 def detail(request, img_id):
     

@@ -1,8 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 
 <html>
     <head>
-        {% load static %}
+        
          
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -10,11 +12,15 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'board/style.css' %}">
+        <link rel="stylesheet" href="{% static 'uploader/style.css' %}">
+        <link rel="stylesheet" href="{% static 'uploader/main.js' %}">
+
+
         <script rel="stylesheet" src="{% static 'board/functions.js' %}"></script> 
         <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
-        <style>
-
-        </style>
+        <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+        <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+        
     </head>
     <body>
 
@@ -22,7 +28,9 @@
             {% block sidebar %}
             <ul>
                 <li><a href="/board/">Home</a></li>
-                <li><a href="/upload/">Upload</a></li>
+                <li><a href="/explorer/">Explorer</a></li>
+                {% comment %}<li><a href="{% url 'board:explorer' %}">Explorer</a></li>{% endcomment %}
+                <li><a href="/uploader/">Upload</a></li>
             </ul>
             {% endblock %}
         </div>
@@ -30,9 +38,6 @@
         <div id="content">
             {% block content %}{% endblock %}
         </div>
-
-
-       
 
     </body>
 </html>

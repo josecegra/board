@@ -17,13 +17,17 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from uploader.views import MainView, file_upload_view
 
 urlpatterns = [
     path('board/', include('board.urls')),
+    path('explorer/', include('explorer.urls')),
+    path('uploader/', MainView.as_view()),
+    path('uploader/upload/', file_upload_view, name= 'upload-view'),
     path('admin/', admin.site.urls),
 ]
 
 from django.conf import settings
 from django.conf.urls.static import static
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

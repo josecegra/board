@@ -8,7 +8,7 @@ app_name = 'board'
 urlpatterns = [
     # ex: /polls/
     path('', views.index, name='index'),
-    path('base', views.base, name='base'),
+    path('explorer', views.explorer, name='base'),
     # ex: /polls/5/
     path('<int:img_id>/', views.detail, name='detail'),
     # # ex: /polls/5/results/

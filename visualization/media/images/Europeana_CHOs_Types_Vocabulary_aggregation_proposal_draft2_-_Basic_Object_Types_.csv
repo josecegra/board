@@ -1,0 +1,74 @@
+europeana term,Object Type,AAT Concept,AAT Hierarchy depth level ,dbpedia,wikidata, data.europeana.eu
+TEXT,,,,,,
+Book,TEXT,books,8,http://dbpedia.org/resource/Book,http://www.wikidata.org/entity/Q571,http://data.europeana.eu/concept/base/6
+"Correspondence
+",TEXT,correspondence ,8,http://dbpedia.org/resource/Letter_(message),http://www.wikidata.org/entity/Q49845,NA
+Grey Literature,TEXT,grey literature,8,http://dbpedia.org/page/Grey_literature,http://www.wikidata.org/entity/Q1148359,NA
+Manuscript,TEXT,manuscripts (documents),8,http://dbpedia.org/resource/Manuscript,http://www.wikidata.org/entity/Q87167,http://data.europeana.eu/concept/base/17
+Newspaper,TEXT,newspapers,10,http://dbpedia.org/resource/Newspaper,http://www.wikidata.org/entity/Q11032,http://data.europeana.eu/concept/base/18
+Periodical,TEXT,periodicals,10,http://dbpedia.org/page/Periodical_literature,http://www.wikidata.org/entity/Q1002697,http://data.europeana.eu/concept/base/21
+Webpage,TEXT,webpage,8,http://dbpedia.org/page/Web_page,http://www.wikidata.org/entity/Q36774,NA
+Pamphlet,TEXT,pamphlet,8,http://dbpedia.org/page/Pamphlet,http://www.wikidata.org/entity/Q190399,http://data.europeana.eu/concept/base/19
+Leaflet,TEXT,leaflets,7,http://dbpedia.org/page/Leaflet,http://www.wikidata.org/entity/Q327611,NA
+IMAGE-3D,,,,,,
+Building,IMAGE/3D,buildings (structures),8,http://dbpedia.org/page/Building,http://www.wikidata.org/entity/Q41176,http://data.europeana.eu/concept/base/29
+Archaeological Site,IMAGE/3D,excavations (sites),9,http://dbpedia.org/page/Archaeological_site,http://www.wikidata.org/entity/Q839954,NA
+Cartoon,IMAGE/3D,cartoons (humorous images),7,http://dbpedia.org/page/Cartoon,http://www.wikidata.org/entity/Q627603,NA
+Ceramics,IMAGE/3D,ceramics (object genre),6,"http://dbpedia.org/resource/Ceramic
+",http://www.wikidata.org/entity/Q45621,http://data.europeana.eu/concept/base/31
+Clothing ,IMAGE/3D,clothing,6,http://dbpedia.org/page/Clothing,http://www.wikidata.org/entity/Q11460,NA
+Costume Accessories,IMAGE/3D,costume accessories,6,NA,http://www.wikidata.org/entity/Q1065579,NA
+Drawing,IMAGE/3D,drawings (visual works),7,http://dbpedia.org/resource/Drawing,http://www.wikidata.org/entity/Q93184,http://data.europeana.eu/concept/base/35
+Map,IMAGE/3D,maps (documents),10,http://dbpedia.org/resource/Map,http://www.wikidata.org/entity/Q4006,http://data.europeana.eu/concept/base/43
+Furniture,IMAGE/3D,furniture,7,http://dbpedia.org/page/Furniture,http://www.wikidata.org/entity/Q14745,http://data.europeana.eu/concept/base/37
+Textile,IMAGE/3D,textile materials,9,http://dbpedia.org/page/Textile,http://www.wikidata.org/entity/Q28823,http://data.europeana.eu/concept/base/55
+Food,IMAGE/3D,Food,,http://dbpedia.org/page/Food,http://www.wikidata.org/entity/Q2095,NA
+Glassware,IMAGE/3D,glassware,7,NA,http://www.wikidata.org/entity/Q13180610,NA
+Inscription,IMAGE/3D,inscriptions,8,NA,http://www.wikidata.org/entity/Q1640824,NA
+Jewellery,IMAGE/3D,jewelry,8,http://dbpedia.org/resource/Jewellery,http://www.wikidata.org/entity/Q161439,http://data.europeana.eu/concept/base/41
+Metalwork,IMAGE/3D,metalwork (visual works),7,http://dbpedia.org/page/Metalworking,http://www.wikidata.org/entity/Q953045,NA
+Machinery,IMAGE/3D,machinery ,7,http://dbpedia.org/page/Machine_(mechanical),http://www.wikidata.org/entity/Q1882685,NA
+Medal ,IMAGE/3D,medals,7,http://dbpedia.org/page/Medal,http://www.wikidata.org/entity/Q131647,NA
+Memorabilia,IMAGE/3D,memorabilia,6,NA,http://www.wikidata.org/entity/Q11989025,NA
+Mineral,IMAGE/3D,mineral ,7,http://dbpedia.org/page/Mineral,http://www.wikidata.org/entity/Q7946,NA
+Musical Instrument,IMAGE/3D,musical instruments,7,http://dbpedia.org/resource/Musical_instrument,http://www.wikidata.org/entity/Q34379,NA
+Painting,IMAGE/3D,paintings (visual works),7,http://dbpedia.org/resource/Painting,http://www.wikidata.org/entity/Q11629,http://data.europeana.eu/concept/base/47
+Photograph,IMAGE/3D,photographs,7,http://dbpedia.org/resource/Photograph,http://www.wikidata.org/entity/Q125191,http://data.europeana.eu/concept/base/48
+Postcard,IMAGE/3D,postcards,9,http://dbpedia.org/resource/Postcard,http://www.wikidata.org/entity/Q192425,http://data.europeana.eu/concept/base/50
+Poster,IMAGE/3D,posters,9,http://dbpedia.org/resource/Poster,http://www.wikidata.org/entity/Q429785,NA
+Print,IMAGE/3D,prints,7,NA,http://www.wikidata.org/entity/Q11060274,NA
+Sculpture,IMAGE/3D,sculpture (visual works),7,http://dbpedia.org/resource/Sculpture,http://www.wikidata.org/entity/Q11634,http://data.europeana.eu/concept/base/51
+Specimen,IMAGE/3D,specimens,8,http://dbpedia.org/page/Biological_specimen,http://www.wikidata.org/entity/Q2075980,http://data.europeana.eu/concept/base/167
+Tableware,IMAGE/3D,tableware,8,http://dbpedia.org/page/Tableware,http://www.wikidata.org/entity/Q851782,NA
+Tool,IMAGE/3D,tools,7,http://dbpedia.org/page/Tool,http://www.wikidata.org/entity/Q39546,NA
+Tapestry,IMAGE/3D,tapestries,7,http://dbpedia.org/resource/Tapestry,http://www.wikidata.org/entity/Q184296,http://data.europeana.eu/concept/base/54
+Toy,IMAGE/3D,toys (recreational artifacts),7,http://dbpedia.org/resource/Toy,http://www.wikidata.org/entity/Q11422,http://data.europeana.eu/concept/base/56
+Weaponry,IMAGE/3D,weapons,5,http://dbpedia.org/page/Weapon,http://www.wikidata.org/entity/Q728,NA
+Woodwork,IMAGE/3D,woodwork (general works),7,http://dbpedia.org/resource/Woodworking,http://www.wikidata.org/entity/Q816871,http://data.europeana.eu/concept/base/59
+Stamp,IMAGE/3D,Stamps,7,http://dbpedia.org/page/Postage_stamp,http://www.wikidata.org/entity/Q37930,NA
+VIDEO,,,,,,
+Animated film,VIDEO,animated films,8,http://dbpedia.org/page/Animation,http://www.wikidata.org/entity/Q11425,NA
+Advertising Film,VIDEO,NA,,NA,http://www.wikidata.org/entity/Q4164344,NA
+Documentary Film,VIDEO,documentary films,8,http://dbpedia.org/page/Documentary_film,http://www.wikidata.org/entity/Q93204,http://data.europeana.eu/concept/base/60
+Educational film,VIDEO,NA,?,http://dbpedia.org/page/Educational_film,http://www.wikidata.org/entity/Q596138,NA
+Experimental film,VIDEO,experimental films,8,http://dbpedia.org/page/Experimental_film,http://www.wikidata.org/entity/Q790192,NA
+Feature film,VIDEO,feature films,8,http://dbpedia.org/page/Feature_film,http://www.wikidata.org/entity/Q24869,NA
+Home Movie,VIDEO,home movies,,http://dbpedia.org/page/Home_movies,http://www.wikidata.org/entity/Q2660900,NA
+Music video,VIDEO,video recordings,8,http://dbpedia.org/page/Music_video,http://www.wikidata.org/entity/Q193977,NA
+Newsreel,VIDEO,newsreels,8,http://dbpedia.org/page/Newsreel,http://www.wikidata.org/entity/Q735478,http://data.europeana.eu/concept/base/61
+Short film,VIDEO,short subjects,8,http://dbpedia.org/page/Short_film,http://www.wikidata.org/entity/Q24862,NA
+Serial,VIDEO,serials(motion pictures),8,NA,http://www.wikidata.org/entity/Q5398426,NA
+Video Art,VIDEO,video art,8,http://dbpedia.org/page/Video_installation,http://www.wikidata.org/entity/Q550484,NA
+Factual Television ,VIDEO,NA,NA,NA,http://www.wikidata.org/entity/Q5428822,NA
+Sports Program,VIDEO,NA,NA,NA,http://www.wikidata.org/entity/Q16894224,NA
+News Program,VIDEO,NA,NA,NA,http://www.wikidata.org/entity/Q1358344,NA
+SOUND,,,,,,
+"Field Recording
+",SOUND,sound recordings,8,http://dbpedia.org/page/Field_recording,http://www.wikidata.org/entity/Q5057302,NA
+Sound Effect,SOUND,NA,NA,http://dbpedia.org/page/Sound_effect,http://www.wikidata.org/entity/Q768807,http://data.europeana.eu/concept/base/63
+Concert,SOUND,concerts ,9,dbpedia.org/page/Concert,http://www.wikidata.org/entity/Q182832,NA
+Phonograph,SOUND,phonograph records ,9,http://dbpedia.org/page/Phonography,http://www.wikidata.org/entity/Q7187283,NA
+Radio program,SOUND,radio programs ,6,http://dbpedia.org/page/Radio_program,http://www.wikidata.org/entity/Q1555508,NA
+Spoken word recording?,SOUND,interviews ,9,http://dbpedia.org/page/Interview,http://www.wikidata.org/entity/Q178651,NA
+Song,SOUND,songs,10,http://dbpedia.org/page/Song,http://www.wikidata.org/entity/Q7366,NA
+Music Album ,SOUND,NA,NA,http://dbpedia.org/page/Album,http://www.wikidata.org/entity/Q482994,NA
