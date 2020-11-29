@@ -11,17 +11,15 @@ from uploader.models import Doc
 # Create your views here.
 @login_required(login_url='/login/')
 def explorer(request):
-
-
-    
+    username = request.user.username
     if request.method == 'POST':
         if 'clear' in request.POST:
-            image_list = Doc.objects.all()
+            image_list = Doc.objects.filter(user = username)
             for img in image_list:
                 img.delete()
 
 
-    image_list = Doc.objects.all()
+    image_list = Doc.objects.filter(user = username)
     len_image_list = len(image_list)
 
     return render(request, 'explorer/explorer.html',

@@ -18,6 +18,7 @@ class MainView(TemplateView):
     template_name = 'uploader/uploader.html'
     
     def post(self,request):
+        username = request.user.username
         fs = FileSystemStorage()
         media_dir = os.path.join(settings.BASE_DIR,'media')
         path = request.POST.get('path')
@@ -30,7 +31,7 @@ class MainView(TemplateView):
 
                 myfile = fs.open(dest_file_path)  
                 uploaded_file_url = fs.url(dest_file_path)          
-                Doc.objects.create(upload = myfile, image_url = uploaded_file_url)
+                Doc.objects.create(upload = myfile, image_url = uploaded_file_url, user=username)
             message = f'Added {i} images'
         else:
             message = 'Empty path entered'
@@ -39,11 +40,12 @@ class MainView(TemplateView):
 
 @login_required(login_url='/login/')
 def file_upload_view(request):
+    username = request.user.username
     if request.method == 'POST':
         myfile = request.FILES.get('file')
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
-        Doc.objects.create(upload = myfile, image_url = uploaded_file_url)
+        Doc.objects.create(upload = myfile, image_url = uploaded_file_url,user = username)
         return HttpResponse('')
     return JsonResponse({'post':'false'})
