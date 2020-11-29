@@ -10,9 +10,9 @@
                 {% for img in image_list %}
 
                     <div class="col">
-                        
+                    <a href="/explorer/{{ img.id }}/">
                         <img src="{{img.image_url}}" alt="asdf" width="224" height="224">
-                        
+                    </a>
                     </div>
 
                     {% if forloop.counter0 == 3 %}

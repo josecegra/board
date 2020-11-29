@@ -3,7 +3,18 @@
 {% load static %}
  
 {% block content %}
-<form  action="upload/" method="POST" class="dropzone dz" id='my-dropzone'>
+
+<p>Select a path</p>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="text" name="path">
+  <button type="submit">Submit</button>
+</form>
+
+
+<p>Or drag and drop your files</p>
+<form  action="upload/" method="post" class="dropzone dz" id='my-dropzone'>
     {% csrf_token %}
     <div class="fallback">
       <input name="file" type="file" multiple />

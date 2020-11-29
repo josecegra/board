@@ -22,8 +22,10 @@ from uploader.views import MainView, file_upload_view
 urlpatterns = [
     path('board/', include('board.urls')),
     path('explorer/', include('explorer.urls')),
-    path('uploader/', MainView.as_view()),
-    path('uploader/upload/', file_upload_view, name= 'upload-view'),
+    path('uploader/', include('uploader.urls')),
+
+    #path('uploader/', MainView.as_view()),
+    #path('uploader/upload/', file_upload_view, name= 'upload-view'),
     path('admin/', admin.site.urls),
 ]
 
