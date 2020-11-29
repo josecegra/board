@@ -29,11 +29,6 @@ class MainView(TemplateView):
             uploaded_file_url = fs.url(dest_file_path)          
             Doc.objects.create(upload = myfile, image_url = uploaded_file_url)
 
-            
-
-
-
-
         context = {}
         return render(request, self.template_name,context)
 

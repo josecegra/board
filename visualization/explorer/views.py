@@ -9,6 +9,14 @@ from uploader.models import Doc
 
 # Create your views here.
 def explorer(request):
+    
+    if request.method == 'POST':
+        if 'clear' in request.POST:
+            image_list = Doc.objects.all()
+            for img in image_list:
+                img.delete()
+
+
     image_list = Doc.objects.all()
     len_image_list = len(image_list)
 

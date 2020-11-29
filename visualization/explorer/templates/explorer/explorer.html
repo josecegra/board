@@ -4,6 +4,11 @@
 {% block content %}
 
         <p> Number of images: {{len_image_list}}</p>
+        
+        <form method="POST">
+        {% csrf_token %}
+        <button name="clear">Clear</button>
+        </form>
 
         <div class="container">
             <div class="row">
