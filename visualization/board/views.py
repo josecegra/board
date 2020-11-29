@@ -7,7 +7,12 @@ from .models import ImageModel
 from django.shortcuts import render, redirect,get_object_or_404
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/login/')
+def home(request):
+    context = {'user':request.user}
+    return render(request, 'board/home.html',context)
 
 def index(request):
 

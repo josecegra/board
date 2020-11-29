@@ -16,7 +16,6 @@
         <link rel="stylesheet" href="{% static 'uploader/main.js' %}">
 
 
-        <script rel="stylesheet" src="{% static 'board/functions.js' %}"></script> 
         <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
         <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
         <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
@@ -31,11 +30,26 @@
                 <li><a href="/explorer/">Explorer</a></li>
                 {% comment %}<li><a href="{% url 'board:explorer' %}">Explorer</a></li>{% endcomment %}
                 <li><a href="/uploader/">Upload</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="/logout/">Log Out</a></li>
+
+                {% else %}
+                <li><a href="/login/">Log In</a></li>
+                <li><a href="/register/">Register</a></li>
+                {% endif %}
             </ul>
+
             {% endblock %}
         </div>
 
         <div id="content">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
             {% block content %}{% endblock %}
         </div>
 

@@ -2,13 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import ImageModel
 from django.shortcuts import render, redirect,get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 import sys
 sys.path.append("..")
 from uploader.models import Doc
 
 # Create your views here.
+@login_required(login_url='/login/')
 def explorer(request):
+
+
     
     if request.method == 'POST':
         if 'clear' in request.POST:
@@ -25,6 +29,7 @@ def explorer(request):
     'image_list':image_list
     })
 
+@login_required(login_url='/login/')
 def detail(request, img_id):
     
     img = get_object_or_404(Doc, pk=img_id)

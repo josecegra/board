@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'board.apps.BoardConfig',
     'explorer.apps.ExplorerConfig',
     'uploader.apps.UploaderConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,7 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = '/board/'
