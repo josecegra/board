@@ -13,7 +13,6 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from .models import Doc
 
-
 class MainView(TemplateView):
     template_name = 'uploader/uploader.html'
     

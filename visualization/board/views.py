@@ -14,6 +14,8 @@ def home(request):
     context = {'user':request.user}
     return render(request, 'board/home.html',context)
 
+
+#not used
 def index(request):
 
     image_list = ImageModel.objects.all()
