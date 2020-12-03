@@ -1,5 +1,5 @@
 from django import forms
-
+from torch_model_module.models import TorchModel
 from .models import ExperimentModel
 class ExperimentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -9,8 +9,10 @@ class ExperimentForm(forms.ModelForm):
         self.fields['is_public'].required = False
         self.fields['name'].widget.attrs.update({'class' : 'short-width'})
 
+    #torch_model = forms.ModelChoiceField(queryset=TorchModel.objects.all())
+
     class Meta:
         model = ExperimentModel
-        fields = [ 'name','is_public']
+        fields = [ 'name','torch_model','dataset','is_public',]
   
 

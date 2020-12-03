@@ -14,7 +14,9 @@
 
 {% if private_experiment_list %}
 {% for model in private_experiment_list %}
-<p> Model name: {{model.name}}              {{model.problem_type}} </p> 
+<a href="/experiments/{{ model.id }}/">
+<p> {{model.name}}              {{model.problem_type}} </p> 
+</a>
 {% endfor %}
 {% endif %}
 
@@ -22,7 +24,9 @@
 
 {% if public_experiment_list %}
 {% for model in public_experiment_list %}
-<p> Model name: {{model.name}}              {{model.problem_type}} </p> 
+<a href="/experiments/{{ model.id }}/"></a>
+<p> {{model.name}}              {{model.problem_type}} </p> 
+</a>
 
 {% endfor %}
 {% endif %}

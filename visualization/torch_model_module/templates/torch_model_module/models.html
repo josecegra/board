@@ -14,7 +14,9 @@
 
 {% if private_models_list %}
 {% for model in private_models_list %}
+<a href="/torch_models/{{ model.id }}/">
 <p> Model name: {{model.name}}              {{model.problem_type}} </p> 
+</a>
 {% endfor %}
 {% endif %}
 
@@ -22,7 +24,9 @@
 
 {% if public_models_list %}
 {% for model in public_models_list %}
+<a href="/torch_models/{{ model.id }}/"></a>
 <p> Model name: {{model.name}}              {{model.problem_type}} </p> 
+</a>
 {% endfor %}
 {% endif %}
 

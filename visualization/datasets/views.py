@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 
 from django.views.generic import TemplateView
@@ -39,3 +39,25 @@ def create_dataset(request):
         form = DatasetForm()
     context = {'form':form}
     return render(request, 'datasets/create_dataset.html',context)
+
+
+def detail(request, ex_id):
+    
+    img = get_object_or_404(DatasetModel, pk=ex_id)
+    context = {'img': img}
+
+    # if request.method == 'POST':
+    #     if 'XAI' in request.POST:
+    #         message = 'XAI should happen'
+    #         context.update({'message':message})
+    #         return render(request, 'e/detail.html', context)
+    #     elif 'refresh' in request.POST:
+    #         context = {'img': img}
+    #         return render(request, 'board/detail.html', context)
+    #     elif 'board' in request.POST:
+    #         return redirect('/board')
+    #     elif 'delete' in request.POST:
+    #         ImageModel.objects.filter(id=img_id).delete()
+    #         return redirect('/board')
+    
+    return render(request, 'datasets/detail.html', context)

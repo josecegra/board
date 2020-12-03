@@ -4,9 +4,9 @@ from torch_model_module.models import TorchModel
 from datasets.models import DatasetModel
 
 
-def get_models(username):
-    obj_list = TorchModel.objects.filter(username=username)
-    print(type(obj_list))
+# def get_models(username):
+#     obj_list = TorchModel.objects.filter(username=username)
+#     print(type(obj_list))
 
 
 # Create your models here.
@@ -34,18 +34,11 @@ class ExperimentModel(models.Model):
     ('classification','classification'),
     ('segmentation','segmentation'),]
 
-    get_models(username)
+    #get_models(username)
     
-    torch_model = models.CharField(
-        max_length=20,
-        choices=MODEL_CHOICES,
-        default='classification',
-    )
-
-
-
-
+    torch_model = models.ForeignKey(TorchModel,on_delete=models.CASCADE,null=True,blank=True)
+    dataset = models.ForeignKey(DatasetModel,on_delete=models.CASCADE,null=True,blank=True)
 
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.name)

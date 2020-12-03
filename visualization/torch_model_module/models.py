@@ -31,4 +31,4 @@ class TorchModel(models.Model):
 
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.name)
