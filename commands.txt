@@ -1,3 +1,7 @@
 python manage.py runserver
 
-python manage.py startapp users
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py startapp torch_model_module

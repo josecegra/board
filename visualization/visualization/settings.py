@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'board.apps.BoardConfig',
     'explorer.apps.ExplorerConfig',
     'uploader.apps.UploaderConfig',
+    'torch_model_module.apps.TorchModelModuleConfig',
     'users.apps.UsersConfig',
+    'datasets.apps.DatasetsConfig',
+    'experiments.apps.ExperimentsConfig',
     'crispy_forms'
 ]
 
@@ -124,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
+STATIC_ROOT = (
     os.path.join(BASE_DIR, 'static'),
 )
 

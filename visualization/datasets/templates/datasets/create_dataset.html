@@ -1,0 +1,33 @@
+{% extends "board/base.html"%}
+{% load crispy_forms_tags %}
+
+{% load static %}
+ 
+{% block content %}
+
+<h1>New dataset</h1>
+
+{% comment %}
+<form action="." method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="form-group">
+  {{ form }}
+</div>
+  <input type="submit" value="Submit">
+</form>
+{% endcomment %}
+
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button type="submit" class="btn btn-success">Save dataset</button>
+</form>
+
+
+
+
+
+
+
+
+{% endblock %}

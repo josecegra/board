@@ -1,0 +1,56 @@
+{% extends "board/base.html"%}
+
+{% load static %}
+ 
+{% block content %}
+
+<h1>New model</h1>
+
+<form action="." method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit">
+</form>
+
+{% comment %}
+<!--
+<form action="upload/"  method="post" >
+  {% csrf_token %}
+  <input type="text" id ="firstname" name ="firstname" />
+  <input type="text" id ="lastname" name ="lastname" />
+  <div class="dropzone" id="my-dropzone">
+    <input name="file" type="file" multiple />
+  </div>
+  <button type="submit" id="submit-all"> upload </button>
+</form>
+-->
+<!--
+<form id="my-dropzone" class="dropzone dz" action="upload/" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="fallback">
+    <input name="file" type="file" multiple />
+  </div>
+</form>
+<button id="submit-all" type="submit" value="Submit" form="add-multiple">
+  Submit all files
+</button>
+
+
+<form  action="upload/" method="post" class="dropzone dz" id='my-dropzone'>
+  {% csrf_token %}
+  <label for="model_name">Name:</label>
+  <input type="text" name="model_name">
+  
+  <div class="fallback">
+    <input name="file" type="file" multiple />
+  </div>
+
+  <button name="submit" type="submit">Submit</button>
+</form>
+-->
+{% endcomment %}
+
+
+
+
+{% endblock %}

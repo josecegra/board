@@ -1,0 +1,33 @@
+{% extends "board/base.html"%}
+
+{% load static %}
+ 
+{% block content %}
+
+
+
+<form action="upload_model/" enctype="multipart/form-data">
+    <button type="submit" name="create-model">Create new model</button>
+</form>
+
+<h1>My models</h1>
+
+{% if private_models_list %}
+{% for model in private_models_list %}
+<p> Model name: {{model.name}}              {{model.problem_type}} </p> 
+{% endfor %}
+{% endif %}
+
+<h1>Public models</h1>
+
+{% if public_models_list %}
+{% for model in public_models_list %}
+<p> Model name: {{model.name}}              {{model.problem_type}} </p> 
+{% endfor %}
+{% endif %}
+
+
+
+ 
+
+{% endblock %}
