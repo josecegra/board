@@ -6,29 +6,39 @@
  
 {% block content %}
 
-<h1>Detail</h1>
+<h1>Dataset: {{experiment.name}}</h1>
+
+<p>Images path: {{experiment.images_path}}</p>
+<p>Problem type: {{experiment.problem_type}}</p>
 
 
-
-{% comment %}
-<form method="post" novalidate>
+<form method="post">
   {% csrf_token %}
-  {{ form|crispy }}
-  <button type="submit" class="btn btn-success">Save experiment</button>
+  <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
 </form>
 
-{% comment %}
-<form action="." method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit">
-</form>
+<p>{{message}}</p>
+
+{% if img_list %}
+<div class="container">
+  <div class="row">
+{% for img in img_list %}
 
 
+<div class="col">
+  <a href="/explorer/{{ img.id }}/">
+      <img src="{{img.img_url}}" alt="asdf" width="224" height="224">
+  </a>
+  </div>
 
-{% endcomment %}
+  {% if forloop.counter0 == 3 %}
+      <div class="w-100"></div>
+  {% endif %}
 
 
-
+{% endfor %}
+</div>
+</div>
+{% endif %}
 
 {% endblock %}

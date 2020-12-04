@@ -6,15 +6,16 @@
  
 {% block content %}
 
-<h1>Detail</h1>
+<h1>Experiment: {{experiment.name}}</h1>
 
+<p>{{experiment.torch_model}}</p>
+<p>{{experiment.dataset}}</p>
 
+<a href="explorer/">Explorer</a>
 
-{% comment %}
-
-{% endcomment %}
-
-
-
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
+</form>
 
 {% endblock %}

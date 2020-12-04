@@ -2,7 +2,7 @@ import os
 import sys
 
 from shutil import copyfile
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.core.files.storage import FileSystemStorage
@@ -82,24 +82,13 @@ def upload_model(request):
     return render(request, 'torch_model_module/upload_model.html',context)
 
 def detail(request, ex_id):
-    
-    img = get_object_or_404(TorchModel, pk=ex_id)
-    context = {'img': img}
+    experiment = get_object_or_404(TorchModel, pk=ex_id)
+    context = {'experiment': experiment}
+    if request.method == 'POST':
+        if 'delete' in request.POST:
+            TorchModel.objects.filter(id=ex_id).delete()
+            return redirect('/torch_models/')
 
-    # if request.method == 'POST':
-    #     if 'XAI' in request.POST:
-    #         message = 'XAI should happen'
-    #         context.update({'message':message})
-    #         return render(request, 'e/detail.html', context)
-    #     elif 'refresh' in request.POST:
-    #         context = {'img': img}
-    #         return render(request, 'board/detail.html', context)
-    #     elif 'board' in request.POST:
-    #         return redirect('/board')
-    #     elif 'delete' in request.POST:
-    #         ImageModel.objects.filter(id=img_id).delete()
-    #         return redirect('/board')
-    
     return render(request, 'torch_model_module/detail.html', context)
 
     # def get(self,request):

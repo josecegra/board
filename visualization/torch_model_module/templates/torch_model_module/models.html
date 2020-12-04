@@ -4,13 +4,13 @@
  
 {% block content %}
 
-
+<h1>Models</h1>
 
 <form action="upload_model/" enctype="multipart/form-data">
-    <button type="submit" name="create-model">Create new model</button>
+    <button type="submit" name="create-model" class="btn btn-primary">Create new model</button>
 </form>
 
-<h1>My models</h1>
+<h3>My models</h3>
 
 {% if private_models_list %}
 {% for model in private_models_list %}

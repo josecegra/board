@@ -4,4 +4,4 @@ python manage.py makemigrations
 
 python manage.py migrate
 
-python manage.py startapp torch_model_module
+python manage.py startapp experiments
