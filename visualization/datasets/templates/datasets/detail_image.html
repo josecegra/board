@@ -1,0 +1,35 @@
+{% extends "board/base.html" %}
+
+{% block content %}
+<h1>{{img.name}}</h1>
+
+<!--TODO: Make it a link-->
+<div id="img-container" style="width: 400px">
+<img src="{{img.img_url}}" alt="{{img.filename}}" width="500" height="600">
+</div>
+<script>
+    var options = {
+      width: 400,
+      height: 200,
+      zoomWidth: 400,
+      offset: {vertical: 0, horizontal: 10}
+    };
+    new ImageZoom(document.getElementById("img-container"), options);
+
+  </script>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" name="board" value="Back to dataset"></input>
+    <input type="submit" name="XAI" value="XAI"></input>
+    <input type="submit" name="predict" value="predict"></input>
+    <input type="submit" name="refresh" value="Refresh"></input>
+    <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')"></input>
+</form>
+
+
+{% if message %}
+<p>{{message}}</p>
+{% endif %}
+
+{% endblock %}

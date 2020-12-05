@@ -14,6 +14,7 @@
 
 <form method="post">
   {% csrf_token %}
+  <input type="submit" name="back" value="Back to datasets"></input>
   <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
 </form>
 
@@ -26,7 +27,7 @@
 
 
 <div class="col">
-  <a href="/explorer/{{ img.id }}/">
+  <a href="{{ img.id }}/">
       <img src="{{img.img_url}}" alt="asdf" width="224" height="224">
   </a>
   </div>

@@ -1,32 +1,25 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
 from .models import DatasetModel, ImageModel
 from .forms import DatasetForm
 from django.core.files.storage import FileSystemStorage
-
 import os
 from shutil import copyfile
-
 from django.core.files import File
+from visualization.settings import MEDIA_ROOT
 
 def get_images(images_path):
-    dest_path = 'C:/Users/Jose Eduardo/Desktop/projects/web_dev/board/visualization/media'
-    
+    dest_path = MEDIA_ROOT
     fs = FileSystemStorage()
     img_list = []
     for fname in os.listdir(images_path):
         fpath = os.path.join(images_path,fname)
         dest_file_path = os.path.join(dest_path,fname)
         copyfile(fpath,dest_file_path)
-        
         myfile = fs.open(dest_file_path)  
         uploaded_file_url = fs.url(dest_file_path)   
-        #djangofile = File(open(dest_file_path,'r',encoding="utf8"))
-        obj = ImageModel() 
-        obj.filename = fname
-        obj.img_file = myfile
-        obj.img_url = uploaded_file_url
+        obj = ImageModel(filename = fname, img_file = myfile, img_url = uploaded_file_url) 
         obj.save()
         img_list.append(obj)
     
@@ -54,15 +47,12 @@ def create_dataset(request):
             if images_path and os.path.exists(images_path):
                 img_list = get_images(images_path)
 
-
-            #print(len(img_list))
             obj = DatasetModel() 
             obj.name = form.cleaned_data['name']
             obj.problem_type = form.cleaned_data['problem_type']
             obj.images_path = form.cleaned_data['images_path']
             obj.annotations_path = form.cleaned_data['annotations_path']
             obj.annotations_upload = form.cleaned_data['annotations_upload']
-            #obj.img_list = img_list
 
             if obj.is_public:
                 obj.username = 'public'
@@ -78,24 +68,40 @@ def create_dataset(request):
     context = {'form':form}
     return render(request, 'datasets/create_dataset.html',context)
 
-def detail(request, ex_id):
-    import os
+def detail_dataset(request, ex_id):
     dataset = get_object_or_404(DatasetModel, pk=ex_id)
-    img_list = dataset.img_list
-    img_list = img_list.all()
+    img_list = dataset.img_list.all()
 
-    #print(len(img_list))
-
-    #print(dir(experiment))
-    #message = os.listdir(dataset.images_path)
     message = ''
     context = {'experiment': dataset,'message':message,'img_list':img_list}
     if request.method == 'POST':
         if 'delete' in request.POST:
             DatasetModel.objects.filter(id=ex_id).delete()
             return redirect('/datasets/')
+        if 'back' in request.POST:
+            return redirect('/datasets/')
 
-    return render(request, 'datasets/detail.html', context)
+
+    return render(request, 'datasets/detail_dataset.html', context)
+
+def detail_image(request, dt_id,img_id):
+    img = get_object_or_404(ImageModel, pk=img_id)
+    context = {'img': img,'dt_id':dt_id}
+    if request.method == 'POST':
+        if 'XAI' in request.POST:
+            message = 'XAI should happen'
+            context.update({'message':message})
+            return render(request, 'datasets/detail_image.html', context)
+        elif 'refresh' in request.POST:
+            context = {'img': img}
+            return render(request, 'datasets/detail_image.html', context)
+        elif 'board' in request.POST:
+            return redirect(f'/datasets/{dt_id}')
+        elif 'delete' in request.POST:
+            ImageModel.objects.filter(id=img_id).delete()
+            return redirect(f'/datasets/{dt_id}')
+    
+    return render(request, 'datasets/detail_image.html', context)
 
 
 # get images when the path is set

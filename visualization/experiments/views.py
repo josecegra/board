@@ -4,7 +4,30 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
 from .models import ExperimentModel
 from .forms import ExperimentForm
-# Create your views here.
+from django.core.files.storage import FileSystemStorage
+
+import os
+from shutil import copyfile
+from django.core.files import File
+from visualization.settings import MEDIA_ROOT
+from datasets.models import ImageModel
+
+def get_images(images_path):
+    dest_path = MEDIA_ROOT
+    fs = FileSystemStorage()
+    img_list = []
+    for fname in os.listdir(images_path):
+        fpath = os.path.join(images_path,fname)
+        dest_file_path = os.path.join(dest_path,fname)
+        copyfile(fpath,dest_file_path)
+        myfile = fs.open(dest_file_path)  
+        uploaded_file_url = fs.url(dest_file_path)   
+        obj = ImageModel(filename = fname, img_file = myfile, img_url = uploaded_file_url) 
+        obj.save()
+        img_list.append(obj)
+    
+    return img_list
+
 class ExperimentsMainView(TemplateView):
     template_name = 'experiments/experiments.html'
 
@@ -40,7 +63,10 @@ def create_experiment(request):
 
 def detail(request, ex_id):
     experiment = get_object_or_404(ExperimentModel, pk=ex_id)
-    context = {'experiment': experiment}
+    if experiment:
+        img_list = experiment.dataset.img_list.all()
+
+    context = {'experiment': experiment,'img_list':img_list}
     if request.method == 'POST':
         if 'delete' in request.POST:
             ExperimentModel.objects.filter(id=ex_id).delete()

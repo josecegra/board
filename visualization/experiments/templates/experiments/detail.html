@@ -18,4 +18,28 @@
   <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
 </form>
 <p>{{message}}</p>
+
+{% if img_list %}
+<div class="container">
+  <div class="row">
+{% for img in img_list %}
+
+
+<div class="col">
+  <a href="/explorer/{{ img.id }}/">
+      <img src="{{img.img_url}}" alt="asdf" width="224" height="224">
+  </a>
+  </div>
+
+  {% if forloop.counter0 == 3 %}
+      <div class="w-100"></div>
+  {% endif %}
+
+
+{% endfor %}
+</div>
+</div>
+{% endif %}
+
+
 {% endblock %}
