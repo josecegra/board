@@ -8,8 +8,6 @@ class ImageModel(models.Model):
     img_url = models.CharField(max_length=500, default = '')
     #dataset = models.ForeignKey(DatasetModel,on_delete=models.CASCADE,null=True,blank=True)
 
-    
-
     def __str__(self):
         return str(self.filename)
 
@@ -34,9 +32,7 @@ class DatasetModel(models.Model):
     images_path = models.CharField(max_length=255, default = '')
     annotations_path = models.CharField(max_length=255, default = '')
     annotations_upload = models.FileField()
-
     is_public = models.BooleanField(default=False)
-
     img_list = models.ManyToManyField(ImageModel)
 
     def __str__(self):

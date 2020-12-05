@@ -61,7 +61,7 @@ def create_experiment(request):
     return render(request, 'experiments/create_experiment.html',context)
 
 
-def detail(request, ex_id):
+def detail_experiment(request, ex_id):
     experiment = get_object_or_404(ExperimentModel, pk=ex_id)
     if experiment:
         img_list = experiment.dataset.img_list.all()
@@ -72,4 +72,26 @@ def detail(request, ex_id):
             ExperimentModel.objects.filter(id=ex_id).delete()
             return redirect('/experiments/')
 
-    return render(request, 'experiments/detail.html', context)
+    return render(request, 'experiments/detail_experiment.html', context)
+
+
+def detail_image(request, ex_id,img_id):
+    img = get_object_or_404(ImageModel, pk=img_id)
+    experiment = get_object_or_404(ExperimentModel, pk=ex_id)
+    
+    context = {'img': img,'experiment':experiment}
+    if request.method == 'POST':
+        if 'XAI' in request.POST:
+            message = 'XAI should happen'
+            context.update({'message':message})
+            return render(request, 'experiments/detail_image.html', context)
+        elif 'refresh' in request.POST:
+            context = {'img': img}
+            return render(request, 'experiments/detail_image.html', context)
+        elif 'board' in request.POST:
+            return redirect(f'/experiments/{ex_id}')
+        elif 'delete' in request.POST:
+            ImageModel.objects.filter(id=img_id).delete()
+            return redirect(f'/experiments/{ex_id}')
+    
+    return render(request, 'experiments/detail_image.html', context)

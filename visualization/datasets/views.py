@@ -25,8 +25,6 @@ def get_images(images_path):
     
     return img_list
 
-
-
 class DatasetsMainView(TemplateView):
     template_name = 'datasets/datasets.html'
     def get(self,request):
@@ -80,7 +78,6 @@ def detail_dataset(request, ex_id):
             return redirect('/datasets/')
         if 'back' in request.POST:
             return redirect('/datasets/')
-
 
     return render(request, 'datasets/detail_dataset.html', context)
 
