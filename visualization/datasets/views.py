@@ -83,7 +83,8 @@ def detail_dataset(request, ex_id):
 
 def detail_image(request, dt_id,img_id):
     img = get_object_or_404(ImageModel, pk=img_id)
-    context = {'img': img,'dt_id':dt_id}
+    dataset = get_object_or_404(DatasetModel, pk=dt_id)
+    context = {'img': img,'dataset':dataset}
     if request.method == 'POST':
         if 'XAI' in request.POST:
             message = 'XAI should happen'

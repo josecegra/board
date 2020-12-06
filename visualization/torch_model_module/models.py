@@ -7,8 +7,16 @@ class TorchModel(models.Model):
     #weights_url = models.CharField(max_length=255, default = '')
     #user = models.CharField(max_length=255, default = '')
     name = models.CharField(max_length=255, default = '')
+    path = models.CharField(max_length=255, default = '')
+    encoding_dict = models.CharField(max_length=500, default = '')
     is_public = models.BooleanField(default=False)
     username = models.CharField(max_length=255, default = '')
+
+
+    api_endpoint = models.CharField(max_length=255, default = '')
+    active = models.BooleanField(default=False)
+
+
 
     CHOICES = [
     ('classification', (

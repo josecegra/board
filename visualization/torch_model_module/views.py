@@ -66,7 +66,8 @@ def upload_model(request):
         form = TorchModelForm(request.POST, request.FILES)
         if form.is_valid():
             obj = TorchModel() 
-            obj.upload = form.cleaned_data['upload']
+            obj.path = form.cleaned_data['path']
+            obj.encoding_dict = form.cleaned_data['encoding_dict']
             obj.name = form.cleaned_data['name']
             obj.problem_type = form.cleaned_data['problem_type']
             obj.is_public = form.cleaned_data['is_public']

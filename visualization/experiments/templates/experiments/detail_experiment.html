@@ -8,7 +8,32 @@
 
 <h1>Experiment: {{experiment.name}}</h1>
 
+<div class="c2">
+  <p>Models active</p>
+  <ul>
+    {% for model in active_models %}
+    <li>
+      <p>{{model.name}}</p>
+      <form method="post">
+        {% csrf_token %}
+        <input type="submit" name="deactivate_{{model.id}}" value="Deactivate"/>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" name="back" value="Back to experiments"/>
+</form>
+
 <p>{{experiment.torch_model}}</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" name="activate" value="Activate"/>
+</form>
+
 <p>{{experiment.dataset}}</p>
 
 <a href="explorer/">Explorer</a>
