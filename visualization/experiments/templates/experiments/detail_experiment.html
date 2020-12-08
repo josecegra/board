@@ -14,31 +14,23 @@
 
 <h1>Experiment: {{experiment.name}}</h1>
 
-<div class="c2 float-right">
-  <p>Models active</p>
-  <ul>
-    {% for model in active_models %}
-    <li>
-      <p>{{model.name}}</p>
-      <form method="post">
-        {% csrf_token %}
-        <input type="submit" name="deactivate_{{model.id}}" value="Deactivate"/>
-      </form>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
+<h2>Models</h2>
 
+{% if active_models %}
+  <div class="list-group">
+  {% for model in active_models %}
+    <a href="/torch_models/{{ model.id }}/" class="list-group-item list-group-item-action">{{model.name}} {{model.problem_type}} </a>
+  {% endfor %}
+  </div>
+{% endif %}
 
+<h2>Datasets</h2>
 
-<p>{{experiment.torch_model}}</p>
-<form method="post">
-  {% csrf_token %}
-  <input type="submit" class="btn btn-success" name="activate" value="Activate"/>
-</form>
-
-<p>{{experiment.dataset}}</p>
-
+{% if experiment.dataset %}
+  <div class="list-group">
+    <a href="/datasets/{{ experiment.dataset.id }}/" class="list-group-item list-group-item-action">{{experiment.dataset.name}} {{experiment.dataset.problem_type}} </a>
+  </div>
+{% endif %}
 
 <p>{{message}}</p>
 
@@ -46,14 +38,11 @@
 <div class="container">
   <div class="row">
 {% for img in img_list %}
-
-
 <div class="col">
   <a href="{{ img.id }}/">
       <img src="{{img.img_url}}" alt="asdf" width="224" height="224">
   </a>
   </div>
-
   {% if forloop.counter0 == 3 %}
       <div class="w-100"></div>
   {% endif %}

@@ -28,6 +28,7 @@ class MainView(TemplateView):
         public_models_list = TorchModel.objects.filter(username = 'public')
         #print(len(models_list))
         context = {'private_models_list':private_models_list,'public_models_list':public_models_list}
+        context.update({'nbar':'models','logged':True})
         return render(request, self.template_name,context)
         
     
@@ -80,6 +81,7 @@ def upload_model(request):
     else:
         form = TorchModelForm()
     context = {'form':form}
+    context.update({'nbar':'models','logged':True})
     return render(request, 'torch_model_module/upload_model.html',context)
 
 def detail(request, ex_id):
@@ -92,6 +94,7 @@ def detail(request, ex_id):
         if 'back' in request.POST:
             return redirect('/torch_models/')
 
+    context.update({'nbar':'models','logged':True})
     return render(request, 'torch_model_module/detail.html', context)
 
     # def get(self,request):

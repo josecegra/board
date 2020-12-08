@@ -5,48 +5,58 @@
 <html>
     <head>
 
+        <title>Image dashboard</title>
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <title>Image dashboard</title>
-
+        
         <link rel="stylesheet" href="{% static 'datasets/style.css' %}">
-
 
         {% comment %}<link rel="stylesheet" href="{% static 'board/style.css' %}">{% endcomment %}
         {% comment %}<link rel="stylesheet" href="{% static 'uploader/style.css' %}">{% endcomment %}
         {% comment %}<link rel="stylesheet" href="{% static 'uploader/main.js' %}">{% endcomment %}
         {% comment %}<link rel="stylesheet" href="{% static 'torch_model_module/style.css' %}">{% endcomment %}
-
-        
         {% comment %}<link rel="stylesheet" href="{% static 'experiments/style.css' %}">{% endcomment %}
         {% comment %}<link rel="stylesheet" href="{% static 'js/main.js' %}">{% endcomment %}
 
-
-
-        
     </head>
     <body>
 
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
               <div class="navbar-header">
-                <a class="navbar-brand" href="#">WebSiteName</a>
+                <a class="navbar-brand" href="#">Showroom</a>
               </div>
               <ul class="nav navbar-nav">
-                <li class="active"><a href="/board/">Home</a></li>
-                <li><a href="/torch_models/">Models</a></li>
-                <li><a href="/datasets/">Datasets</a></li>
-                <li><a href="/experiments/">Experiments</a></li>
+                {% if  logged == True %}
+                <li class="{% if nbar == 'home'%}active{% endif %}"><a href="/board/">Home</a></li>
+                <li class="{% if nbar == 'models'%}active{% endif %}"><a href="/torch_models/">Models</a></li>
+                <li class="{% if nbar == 'datasets'%}active{% endif %}"><a href="/datasets/">Datasets</a></li>
+                <li class="{% if nbar == 'experiments'%}active{% endif %}"><a href="/experiments/">Experiments</a></li>
+                {% endif %}
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% if  logged == True %}
+                <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                {% else%}
+                <li><a href="/register/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% endif %}
               </ul>
             </div>
           </nav>
 
+          <div id="content">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
 
 
         
@@ -81,16 +91,7 @@
         </div>
         {% endcomment %}
 
-        <div id="content">
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-{{message.tags}}">
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% block content %}{% endblock %}
-        </div>
+
             
 
 

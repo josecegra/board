@@ -32,6 +32,8 @@ class DatasetsMainView(TemplateView):
         private_dataset_list = DatasetModel.objects.filter(username = username)
         public_dataset_list = DatasetModel.objects.filter(username = 'public')
         context = {'private_dataset_list':private_dataset_list,'public_dataset_list':public_dataset_list}
+        context.update({'nbar':'datasets','logged':True})
+
         return render(request, self.template_name,context)
 
 def create_dataset(request):
@@ -64,6 +66,7 @@ def create_dataset(request):
     else:
         form = DatasetForm()
     context = {'form':form}
+    context.update({'nbar':'datasets','logged':True})
     return render(request, 'datasets/create_dataset.html',context)
 
 def detail_dataset(request, ex_id):
@@ -79,6 +82,7 @@ def detail_dataset(request, ex_id):
         if 'back' in request.POST:
             return redirect('/datasets/')
 
+    context.update({'nbar':'datasets','logged':True})
     return render(request, 'datasets/detail_dataset.html', context)
 
 def detail_image(request, dt_id,img_id):
@@ -98,7 +102,8 @@ def detail_image(request, dt_id,img_id):
         elif 'delete' in request.POST:
             ImageModel.objects.filter(id=img_id).delete()
             return redirect(f'/datasets/{dt_id}')
-    
+
+    context.update({'nbar':'datasets','logged':True})
     return render(request, 'datasets/detail_image.html', context)
 
 

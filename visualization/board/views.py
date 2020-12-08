@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/login/')
 def home(request):
-    context = {'user':request.user}
+    context = {'user':request.user,'nbar':'home','logged':True}
     return render(request, 'board/home.html',context)
 
 
