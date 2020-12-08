@@ -1,6 +1,13 @@
-{% extends "board/base.html" %}
+{% extends "base.html"%}
 
 {% block content %}
+
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-secondary" name="board" value="Back to dataset"></input>
+  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete" onclick="return confirm('Are you sure?')"></input>
+</form>
+
 <h1>{{img.filename}}</h1>
 <p>dataset: {{dataset.name}}</p>
 
@@ -21,11 +28,9 @@
 
 <form action="" method="post">
     {% csrf_token %}
-    <input type="submit" name="board" value="Back to dataset"></input>
     <input type="submit" name="XAI" value="XAI"></input>
     <input type="submit" name="predict" value="predict"></input>
     <input type="submit" name="refresh" value="Refresh"></input>
-    <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')"></input>
 </form>
 
 

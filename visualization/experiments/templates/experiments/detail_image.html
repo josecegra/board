@@ -1,32 +1,30 @@
-{% extends "board/base.html" %}
-
+{% extends "base.html"%}
+{% load static %}
 {% block content %}
+
+
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-secondary" name="board" value="Back to experiment"></input>
+  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete" onclick="return confirm('Are you sure?')"></input>
+</form>
+
+
 <h1>{{img.filename}}</h1>
 <p>Experiment: {{experiment.name}}</p>
 <p>model: {{experiment.torch_model.name}}</p>
 
-<!--TODO: Make it a link-->
-<div id="img-container" style="width: 400px">
+<div id="img-container">
 <img src="{{img.img_url}}" alt="{{img.filename}}" width="500" height="600">
 </div>
-<script>
-    var options = {
-      width: 400,
-      height: 200,
-      zoomWidth: 400,
-      offset: {vertical: 0, horizontal: 10}
-    };
-    new ImageZoom(document.getElementById("img-container"), options);
+<script src="{% static 'js/main.js' %}"></script> 
 
-  </script>
 
 <form action="" method="post">
     {% csrf_token %}
-    <input type="submit" name="board" value="Back to experiment"></input>
     <input type="submit" name="XAI" value="XAI"></input>
     <input type="submit" name="predict" value="predict"></input>
     <input type="submit" name="refresh" value="Refresh"></input>
-    <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')"></input>
 </form>
 
 

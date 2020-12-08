@@ -1,4 +1,4 @@
-{% extends "board/base.html"%}
+{% extends "base.html"%}
 
 {% load crispy_forms_tags %}
 
@@ -6,9 +6,15 @@
  
 {% block content %}
 
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-secondary" name="back" value="Back to experiments"/>
+  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
+</form>
+
 <h1>Experiment: {{experiment.name}}</h1>
 
-<div class="c2">
+<div class="c2 float-right">
   <p>Models active</p>
   <ul>
     {% for model in active_models %}
@@ -23,25 +29,17 @@
   </ul>
 </div>
 
-<form method="post">
-  {% csrf_token %}
-  <input type="submit" name="back" value="Back to experiments"/>
-</form>
+
 
 <p>{{experiment.torch_model}}</p>
 <form method="post">
   {% csrf_token %}
-  <input type="submit" name="activate" value="Activate"/>
+  <input type="submit" class="btn btn-success" name="activate" value="Activate"/>
 </form>
 
 <p>{{experiment.dataset}}</p>
 
-<a href="explorer/">Explorer</a>
 
-<form method="post">
-  {% csrf_token %}
-  <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
-</form>
 <p>{{message}}</p>
 
 {% if img_list %}

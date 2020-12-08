@@ -1,4 +1,4 @@
-{% extends "board/base.html"%}
+{% extends "base.html"%}
 
 {% load crispy_forms_tags %}
 
@@ -6,17 +6,19 @@
  
 {% block content %}
 
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-secondary" name="back" value="Back to datasets"></input>
+  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete" onclick="return confirm('Are you sure?')"></input>
+</form>
+
 <h1>Dataset: {{experiment.name}}</h1>
 
 <p>Images path: {{experiment.images_path}}</p>
 <p>Problem type: {{experiment.problem_type}}</p>
 
 
-<form method="post">
-  {% csrf_token %}
-  <input type="submit" name="back" value="Back to datasets"></input>
-  <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
-</form>
+
 
 <p>{{message}}</p>
 

@@ -1,4 +1,4 @@
-{% extends "board/base.html"%}
+{% extends "base.html"%}
 
 {% load static %}
  
@@ -13,21 +13,21 @@
 <h3>My models</h3>
 
 {% if private_models_list %}
-{% for model in private_models_list %}
-<a href="/torch_models/{{ model.id }}/">
-<p> Model name: {{model.name}}              {{model.problem_type}} </p> 
-</a>
-{% endfor %}
+    <div class="list-group">
+    {% for model in private_models_list %}
+        <a href="/torch_models/{{ model.id }}/" class="list-group-item list-group-item-action"> Model name: {{model.name}} {{model.problem_type}} </a>
+    {% endfor %}
+    </div>
 {% endif %}
 
-<h1>Public models</h1>
+<h3>Public models</h3>
 
 {% if public_models_list %}
-{% for model in public_models_list %}
-<a href="/torch_models/{{ model.id }}/"></a>
-<p> Model name: {{model.name}}              {{model.problem_type}} </p> 
-</a>
-{% endfor %}
+    <div class="list-group">
+    {% for model in public_models_list %}
+        <a href="/torch_models/{{ model.id }}/" class="list-group-item list-group-item-action"> Model name: {{model.name}} {{model.problem_type}} </a>
+    {% endfor %}
+    </div>
 {% endif %}
 
 

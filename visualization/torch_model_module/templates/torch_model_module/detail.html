@@ -1,4 +1,4 @@
-{% extends "board/base.html"%}
+{% extends "base.html"%}
 
 {% load crispy_forms_tags %}
 
@@ -6,16 +6,17 @@
  
 {% block content %}
 
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-secondary" name="back" value="Back to models"/>
+  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
+</form>
+
 <h1>Experiment: {{experiment.name}}</h1>
 
 <p>{{experiment.torch_model}}</p>
 <p>{{experiment.dataset}}</p>
 
-<a href="explorer/">Explorer</a>
 
-<form method="post">
-  {% csrf_token %}
-  <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
-</form>
 
 {% endblock %}

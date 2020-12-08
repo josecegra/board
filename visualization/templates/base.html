@@ -4,54 +4,82 @@
 
 <html>
     <head>
-        
-         
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <title>Image dashboard</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'board/style.css' %}">
-        <link rel="stylesheet" href="{% static 'uploader/style.css' %}">
-        <link rel="stylesheet" href="{% static 'uploader/main.js' %}">
-        <link rel="stylesheet" href="{% static 'torch_model_module/style.css' %}">
-        <link rel="stylesheet" href="{% static 'torch_model_module/main.js' %}">
 
         <link rel="stylesheet" href="{% static 'datasets/style.css' %}">
-        <link rel="stylesheet" href="{% static 'experiments/style.css' %}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+        {% comment %}<link rel="stylesheet" href="{% static 'board/style.css' %}">{% endcomment %}
+        {% comment %}<link rel="stylesheet" href="{% static 'uploader/style.css' %}">{% endcomment %}
+        {% comment %}<link rel="stylesheet" href="{% static 'uploader/main.js' %}">{% endcomment %}
+        {% comment %}<link rel="stylesheet" href="{% static 'torch_model_module/style.css' %}">{% endcomment %}
+
+        
+        {% comment %}<link rel="stylesheet" href="{% static 'experiments/style.css' %}">{% endcomment %}
+        {% comment %}<link rel="stylesheet" href="{% static 'js/main.js' %}">{% endcomment %}
 
 
 
-
-        <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
-        <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
-        <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
         
     </head>
     <body>
 
-        <div class="sidebar">
-            {% block sidebar %}
-            <ul>
-                <li><a href="/board/">Home</a></li>
-                <li><a href="/explorer/">Explorer</a></li>
-                {% comment %}<li><a href="{% url 'board:explorer' %}">Explorer</a></li>{% endcomment %}
-                <li><a href="/uploader/">Upload</a></li>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSiteName</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/board/">Home</a></li>
                 <li><a href="/torch_models/">Models</a></li>
                 <li><a href="/datasets/">Datasets</a></li>
                 <li><a href="/experiments/">Experiments</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              </ul>
+            </div>
+          </nav>
 
-                {% if user.is_authenticated %}
-                <li><a href="/logout/">Log Out</a></li>
-                {% else %}
-                <li><a href="/login/">Log In</a></li>
-                <li><a href="/register/">Register</a></li>
-                {% endif %}
+
+
+        
+        {% comment %}
+
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+   
+            <ul class="nav navbar-nav" style="float: right">
+                <li class="nav-item text-nowrap ">
+                  <a class="nav-link" href="/logout/">Sign out</a>
+                </li>
             </ul>
+              
+        </nav>
 
-            {% endblock %}
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-mk-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item"><a href="/board/">Home</a></li>
+                            <li class="nav-item"><a href="/torch_models/">Models</a></li>
+                            <li class="nav-item"><a href="/datasets/">Datasets</a></li>
+                            <li class="nav-item"><a href="/experiments/">Experiments</a></li>
+
+                        </ul>
+
+                    </div>
+
+                </nav>
+            </div>
         </div>
+        {% endcomment %}
 
         <div id="content">
             {% if messages %}
@@ -63,6 +91,9 @@
             {% endif %}
             {% block content %}{% endblock %}
         </div>
+            
+
+
 
     </body>
 </html>

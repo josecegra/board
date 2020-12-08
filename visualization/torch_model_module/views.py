@@ -89,6 +89,8 @@ def detail(request, ex_id):
         if 'delete' in request.POST:
             TorchModel.objects.filter(id=ex_id).delete()
             return redirect('/torch_models/')
+        if 'back' in request.POST:
+            return redirect('/torch_models/')
 
     return render(request, 'torch_model_module/detail.html', context)
 

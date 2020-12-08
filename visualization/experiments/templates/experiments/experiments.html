@@ -1,4 +1,4 @@
-{% extends "board/base.html"%}
+{% extends "base.html"%}
 
 {% load static %}
  
@@ -13,26 +13,20 @@
 <h3>My experiments</h3>
 
 {% if private_experiment_list %}
-{% for model in private_experiment_list %}
-<a href="/experiments/{{ model.id }}/">
-<p> {{model.name}}              {{model.problem_type}} </p> 
-</a>
-{% endfor %}
+    <div class="list-group">
+    {% for model in private_experiment_list %}
+        <a href="/experiments/{{ model.id }}/" class="list-group-item list-group-item-action">{{model.name}} {{model.problem_type}} </a>
+    {% endfor %}
+    </div>
 {% endif %}
 
 <h3>Public experiments</h3>
-
 {% if public_experiment_list %}
-{% for model in public_experiment_list %}
-<a href="/experiments/{{ model.id }}/"></a>
-<p> {{model.name}}              {{model.problem_type}} </p> 
-</a>
-
-{% endfor %}
+    <div class="list-group">
+    {% for model in public_experiment_list %}
+        <a href="/experiments/{{ model.id }}/" class="list-group-item list-group-item-action">{{model.name}} {{model.problem_type}} </a>
+    {% endfor %}
+    </div>
 {% endif %}
-
-
-
- 
 
 {% endblock %}
