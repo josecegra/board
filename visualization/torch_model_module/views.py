@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from .models import TorchModel
 from .forms import TorchModelForm
+from api_wrapper.api_wrapper import ModelAPI
 
 from django.views.generic.edit import CreateView
 
@@ -21,17 +22,12 @@ class MainView(TemplateView):
 
     def get(self,request):
         username = request.user.username
-        print(username)
-        #private models 
         private_models_list = TorchModel.objects.filter(username = username)
-        #public models
         public_models_list = TorchModel.objects.filter(username = 'public')
-        #print(len(models_list))
         context = {'private_models_list':private_models_list,'public_models_list':public_models_list}
         context.update({'nbar':'models','logged':True})
         return render(request, self.template_name,context)
         
-    
     def post(self,request):
         
         username = request.user.username
@@ -55,20 +51,16 @@ class MainView(TemplateView):
         return render(request, self.template_name,context)
 
 
-class TorchModelView(CreateView):
-    template_name = 'torch_model_module/upload_model.html'
-    model = TorchModel
-    fields = ['name', 'upload']
-
-
+@login_required(login_url='/login/')
 def upload_model(request):
+    context = {'nbar':'models','logged':True}
     username = request.user.username
     if request.method == "POST":
         form = TorchModelForm(request.POST, request.FILES)
         if form.is_valid():
             obj = TorchModel() 
-            obj.path = form.cleaned_data['path']
-            obj.encoding_dict = form.cleaned_data['encoding_dict']
+            obj.port = form.cleaned_data['port']
+            obj.endpoint = form.cleaned_data['endpoint']
             obj.name = form.cleaned_data['name']
             obj.problem_type = form.cleaned_data['problem_type']
             obj.is_public = form.cleaned_data['is_public']
@@ -77,16 +69,31 @@ def upload_model(request):
             else:
                 obj.username = username
             obj.save()
-            return HttpResponseRedirect('/torch_models/')
+            #return detail(request, obj.id)
+            return HttpResponseRedirect(f'/torch_models/{obj.id}/')
     else:
         form = TorchModelForm()
-    context = {'form':form}
-    context.update({'nbar':'models','logged':True})
+
+    context.update({'form':form})
     return render(request, 'torch_model_module/upload_model.html',context)
 
+@login_required(login_url='/login/')
 def detail(request, ex_id):
-    experiment = get_object_or_404(TorchModel, pk=ex_id)
-    context = {'experiment': experiment}
+    context = {'nbar':'models','logged':True}
+
+    if request.method == 'GET':
+
+        model = get_object_or_404(TorchModel, pk=ex_id)
+        model_wrapper = ModelAPI(model.endpoint,model.port)
+        encoding_dict = model_wrapper.encoding_dict()
+        active = False
+        n_classes = None
+        if encoding_dict:
+            active = True
+            n_classes = len(encoding_dict)
+
+        context.update({'model': model, 'active':active,'encoding_dict':encoding_dict,'n_classes':n_classes})
+
     if request.method == 'POST':
         if 'delete' in request.POST:
             TorchModel.objects.filter(id=ex_id).delete()
@@ -94,32 +101,8 @@ def detail(request, ex_id):
         if 'back' in request.POST:
             return redirect('/torch_models/')
 
-    context.update({'nbar':'models','logged':True})
+    
     return render(request, 'torch_model_module/detail.html', context)
-
-    # def get(self,request):
-    #     #username = request.user.username
-    #     #models_list = TorchModel.objects.filter(user = username)
-    #     #print(len(models_list))
-    #     form = TorchModelForm()
-    #     context = {'form':form}
-    #     return render(request, self.template_name,context)
-
-    # def post(self,request):
-    #     username = request.user.username
-
-    #     form = TorchModelForm(request.POST)
-    #     # check whether it's valid:
-    #     if form.is_valid():
-    #         return HttpResponseRedirect('torch_models/')
-            
-    #     # uploaded_file_url = fs.url(filename)
-    #     #TorchModel.objects.create(upload = myfile, weights_url = uploaded_file_url,user = username)
-
-
-    #     context = {'form': form}
-    #     return render(request, self.template_name,context)
-
 
 
 @login_required(login_url='/login/')

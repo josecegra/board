@@ -1,22 +1,32 @@
 {% extends "base.html"%}
-
+{% load static %}
 {% load crispy_forms_tags %}
 
-{% load static %}
- 
 {% block content %}
 
 <form method="post">
   {% csrf_token %}
   <input type="submit" class="btn btn-secondary" name="back" value="Back to models"/>
-  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
+  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete model" onclick="return confirm('Are you sure?')" />
 </form>
 
-<h1>Experiment: {{experiment.name}}</h1>
+<h1>{{model.name}}</h1>
 
-<p>{{experiment.torch_model}}</p>
-<p>{{experiment.dataset}}</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-secondary" name="active" value="Check if the model is active"/>
+</form>
 
+{% if active %}
+<span class="glyphicon glyphicon-ok">Model is active</span>
+<p></p>
+{% endif %}
 
+<p>Endpoint: {{model.endpoint}}</p>
+<p>Port: {{model.port}}</p>
+<p>Encoding_dict: {{encoding_dict}}</p>
+<p>n_classes: {{n_classes}}</p>
+
+ 
 
 {% endblock %}

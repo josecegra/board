@@ -1,5 +1,5 @@
 from django.urls import path
-from torch_model_module.views import MainView, file_upload_view, TorchModelView, upload_model
+from torch_model_module.views import MainView, file_upload_view, upload_model
 from django.contrib.auth.decorators import login_required
 import torch_model_module.views as torch_models_views
 

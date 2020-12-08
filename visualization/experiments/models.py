@@ -9,8 +9,10 @@ class ExperimentModel(models.Model):
     is_public = models.BooleanField(default=False)
     username = models.CharField(max_length=255, default = '')
     
-    torch_model = models.ForeignKey(TorchModel,on_delete=models.CASCADE,null=True,blank=True)
-    dataset = models.ForeignKey(DatasetModel,on_delete=models.CASCADE,null=True,blank=True)
+    torch_model = models.OneToOneField(TorchModel,on_delete=models.CASCADE,null=True,blank=True)
+    dataset = models.OneToOneField(DatasetModel,on_delete=models.CASCADE,null=True,blank=True)
+
+    
 
 
     def __str__(self):

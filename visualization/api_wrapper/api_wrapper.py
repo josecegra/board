@@ -32,23 +32,23 @@ class ModelAPI():
 
         pred_dict = {}
         for img_path in img_path_list:
-            #try:
-            resp = requests.post(self.url, files={"file": open(img_path,'rb')}).json() 
-            print(resp)    
-            pred_dict.update({img_path:resp['class_name']})
-            #except:
-            #print(f'Something went wrong when predicting {img_path}') 
+            try:
+                resp = requests.post(self.url, files={"file": open(img_path,'rb')}).json() 
+                #print(resp)    
+                pred_dict.update({img_path:{'class':resp['class_name'],'XAI_path':resp['XAI_path']}})
+            except:
+                print(f'Something went wrong when predicting {img_path}') 
 
         return pred_dict
 
 
-model = ModelAPI('sortifier',port = 5000)
+# model = ModelAPI('sortifier',port = 5000)
 
 
-img_path_list = ['tmp.jpg']
+# img_path_list = ['tmp.jpg']
 
-pred_dict = model.predict(img_path_list)
-encoding_dict = model.encoding_dict()
-print(pred_dict)
+# pred_dict = model.predict(img_path_list)
+# encoding_dict = model.encoding_dict()
+# print(pred_dict)
 
 

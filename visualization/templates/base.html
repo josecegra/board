@@ -38,6 +38,7 @@
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 {% if  logged == True %}
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>{{user}}</a></li>
                 <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                 {% else%}
                 <li><a href="/register/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -61,7 +62,6 @@
 
         
         {% comment %}
-
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
    
             <ul class="nav navbar-nav" style="float: right">
@@ -90,10 +90,6 @@
             </div>
         </div>
         {% endcomment %}
-
-
-            
-
 
 
     </body>

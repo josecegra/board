@@ -7,13 +7,18 @@ class TorchModelForm(forms.ModelForm):
         super(TorchModelForm, self).__init__(*args, **kwargs)
         self.fields['is_public'].required = False
         
-        self.fields['path'].widget.attrs.update({'class' : 'long-width'})
-        self.fields['encoding_dict'].widget.attrs.update({'class' : 'long-width'})
+        #self.fields['path'].widget.attrs.update({'class' : 'long-width'})
+        #self.fields['encoding_dict'].widget.attrs.update({'class' : 'long-width'})
+
+        self.fields['endpoint'].widget.attrs.update({'class' : 'short-width'})
+        self.fields['port'].widget.attrs.update({'class' : 'short-width'})
+
+
         self.fields['name'].widget.attrs.update({'class' : 'short-width'})
         self.fields['problem_type'].widget.attrs.update({'class' : 'short-width'})
 
     class Meta:
         model = TorchModel
-        fields = [ 'name','path','encoding_dict','problem_type','is_public']
+        fields = [ 'name','endpoint','port','problem_type','is_public']
   
 
