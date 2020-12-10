@@ -14,35 +14,49 @@
 <p>Experiment: {{experiment.name}}</p>
 <p>model: {{experiment.torch_model.name}}</p>
 
-  <div class="row">
-  <div class="column pull-left">
-    <img src="{{img.img_url}}" alt="{{img.filename}}" width="500" height="600">
-      
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="submit" name="predict" value="predict"></input>
+  <input type="submit" name="refresh" value="Refresh"></input>
+  <input type="submit" name="download" value="download"></input>
+</form>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-6">
+    <div id="img-container">
+    <img class="img-fluid float-left" src="{{img.img_url}}" alt="{{img.filename}}" width="400" >
   </div>
-  
-  {% if class %}
-  <div class="column">
-    <p>{{class}}</p>
-    <img src="{{XAI_img.img_url}}" alt="{{img.filename}}" width="500" height="600">
-      
+  </div>
+  <div class="col-md-6">
+    {% if class %}
+    <div id="img-container-xai">
+    <img class="img-fluid" src="{{XAI_img.img_url}}" alt="{{img.filename}}" width="400" >
   </div>
   {% endif %}
-
+</div>
+</div>
 </div>
 
 
 
 
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" name="XAI" value="XAI"></input>
-    <input type="submit" name="predict" value="predict"></input>
-    <input type="submit" name="refresh" value="Refresh"></input>
-</form>
+
 
 
 {% if message %}
 <p>{{message}}</p>
 {% endif %}
+
+<script>
+  var options = {
+    width: 400,
+    zoomWidth: 500,
+    zoomPosition: 'bottom',
+    offset: {vertical: 0, horizontal: 0}
+  };
+  new ImageZoom(document.getElementById("img-container"), options);
+  new ImageZoom(document.getElementById("img-container-xai"), options);
+</script>
 
 {% endblock %}

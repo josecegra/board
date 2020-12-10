@@ -10,8 +10,13 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+
         
         <link rel="stylesheet" href="{% static 'datasets/style.css' %}">
+        <link rel="stylesheet" href="{% static 'experiments/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'js/main.css' %}">
 
         {% comment %}<link rel="stylesheet" href="{% static 'board/style.css' %}">{% endcomment %}
         {% comment %}<link rel="stylesheet" href="{% static 'uploader/style.css' %}">{% endcomment %}
@@ -47,7 +52,9 @@
               </ul>
             </div>
           </nav>
+          
 
+          <div class="body">
           <div id="content">
             {% if messages %}
             {% for message in messages %}
@@ -58,6 +65,7 @@
             {% endif %}
             {% block content %}{% endblock %}
         </div>
+      </div>
 
 
         

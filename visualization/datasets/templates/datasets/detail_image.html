@@ -5,33 +5,41 @@
 <form action="" method="post">
   {% csrf_token %}
   <input type="submit" class="btn btn-secondary" name="board" value="Back to dataset"></input>
-  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete" onclick="return confirm('Are you sure?')"></input>
+  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete image" onclick="return confirm('Are you sure?')"></input>
 </form>
 
 <h1>{{img.filename}}</h1>
 <p>dataset: {{dataset.name}}</p>
 
 <!--TODO: Make it a link-->
-<div id="img-container" style="width: 400px">
-<img src="{{img.img_url}}" alt="{{img.filename}}" width="500" height="600">
-</div>
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div id="img-container">
+      <img class="img-fluid float-left" src="{{img.img_url}}" alt="{{img.filename}}" width="400" >
+    </div>
+    </div>
+    <div class="col-md-6">
+  </div>
+  </div>
+  </div>
+
+
 <script>
-    var options = {
-      width: 400,
-      height: 200,
-      zoomWidth: 400,
-      offset: {vertical: 0, horizontal: 10}
-    };
-    new ImageZoom(document.getElementById("img-container"), options);
+  var options = {
+    width: 400,
+    zoomWidth: 500,
+    offset: {vertical: 0, horizontal: 10}
+  };
+  new ImageZoom(document.getElementById("img-container"), options);
+  new ImageZoom(document.getElementById("img-container-xai"), options);
+</script>
 
-  </script>
 
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" name="XAI" value="XAI"></input>
-    <input type="submit" name="predict" value="predict"></input>
-    <input type="submit" name="refresh" value="Refresh"></input>
-</form>
 
 
 {% if message %}

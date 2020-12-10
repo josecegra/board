@@ -69,15 +69,25 @@ def get_prediction(model,image_bytes,filename):
     heatmap_layer = model.module.net.layer4[2].conv2
     image = Image.open(io.BytesIO(image_bytes)).convert('RGB') 
     image_interpretable = grad_cam(model, image, heatmap_layer, get_transform())
-    fig,ax = plt.subplots(figsize=(20,20))
-    ax.imshow(image_interpretable)
-    ax.axis('off')
+
+    print(type(image_interpretable))
+
+
+
+    # fig,ax = plt.subplots()
+    # ax.imshow(image_interpretable)
+    # ax.axis('off')
 
     images_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'images')
     if not os.path.exists(images_path):
         os.mkdir(images_path)
     XAI_path = os.path.join(images_path,filename)
-    fig.savefig(XAI_path)
+    # fig.tight_layout()
+
+    # fig.savefig(XAI_path, bbox_inches='tight')
+
+    XAI_img = Image.fromarray(image_interpretable).convert('RGB')
+    XAI_img.save(XAI_path)
 
     return str(predicted_idx), class_index_dict[predicted_idx], XAI_path
 

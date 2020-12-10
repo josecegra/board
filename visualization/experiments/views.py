@@ -10,15 +10,13 @@ import os
 from shutil import copyfile
 from django.core.files import File
 from visualization.settings import MEDIA_ROOT
-from datasets.models import ImageModel
+from datasets.models import ImageModel,DatasetModel
 from torch_model_module.models import TorchModel
 from django.contrib.auth.decorators import login_required
 
-
 from api_wrapper.api_wrapper import ModelAPI
-#from torch_datasets.flask_api import *
 
-
+import mimetypes
 
 def get_images(images_path):
     dest_path = MEDIA_ROOT
@@ -41,8 +39,13 @@ class ExperimentsMainView(TemplateView):
 
     def get(self,request):
         username = request.user.username
-        private_experiment_list = ExperimentModel.objects.filter(username = username)
-        public_experiment_list = ExperimentModel.objects.filter(username = 'public')
+        #private_experiment_list = ExperimentModel.objects.filter(username = username)
+        #public_experiment_list = ExperimentModel.objects.filter(username = 'public')
+        
+        private_experiment_list = None
+        public_experiment_list = ExperimentModel.objects.all()
+
+        
         context = {'private_experiment_list':private_experiment_list,'public_experiment_list':public_experiment_list}
         context.update({'nbar':'experiments','logged':True})
         return render(request, self.template_name,context)
@@ -50,27 +53,34 @@ class ExperimentsMainView(TemplateView):
 @login_required(login_url='/login/')
 def create_experiment(request):
     username = request.user.username
+    user = request.user
+    #print(type(user))
     if request.method == "POST":
         form = ExperimentForm(request.POST, request.FILES)
         if form.is_valid():
-            obj = ExperimentModel() 
-            obj.name = form.cleaned_data['name']
-            obj.is_public = form.cleaned_data['is_public']
-            obj.torch_model = form.cleaned_data['torch_model']
-            obj.dataset = form.cleaned_data['dataset']
-            #print(form.cleaned_data['torch_model'].endpoint)
-            #obj.torch_model.create(name = 'test')
-            #print(dir(torch_model))
-            #print(torch_model.values)
-            #torch_model.save()
-            #obj.torch_model.set(torch_model)
-            #obj.dataset.set(form.cleaned_data['dataset'])
-            if obj.is_public:
-                obj.username = 'public'
-            else:
-                obj.username = username
-            obj.save()
-            return HttpResponseRedirect(f'/experiments/{obj.id}')
+            form.save()
+
+            #for experiment in form.instance
+            #print(form.instance.id)
+            # obj = ExperimentModel() 
+            # obj.name = form.cleaned_data['name']
+            # print(form.cleaned_data['torch_model'].experiments)
+            # obj.is_public = form.cleaned_data['is_public']
+            # obj.torch_model = form.cleaned_data['torch_model']
+            # obj.dataset = form.cleaned_data['dataset']
+            # #print(form.cleaned_data['torch_model'].endpoint)
+            # #obj.torch_model.create(name = 'test')
+            # #print(dir(torch_model))
+            # #print(torch_model.values)
+            # #torch_model.save()
+            # #obj.torch_model.set(torch_model)
+            # #obj.dataset.set(form.cleaned_data['dataset'])
+            # if obj.is_public:
+            #     obj.username = 'public'
+            # else:
+            #     obj.username = username
+            # obj.save()
+            return HttpResponseRedirect(f'/experiments/{form.instance.id}')
     else:
         form = ExperimentForm()
     context = {'form':form}
@@ -80,19 +90,21 @@ def create_experiment(request):
 @login_required(login_url='/login/')
 def detail_experiment(request, ex_id):
     experiment = get_object_or_404(ExperimentModel, pk=ex_id)
-    #print(experiment.dataset.all())
-    #dataset_id = experiment.dataset.pk
 
-    #dataset_list = list(experiment.dataset.all())
-    #print(len(dataset_list))
-    
+    img_list = []
     if experiment:
-        img_list = experiment.dataset.img_list.all()
-        #img_list = []
+        for dataset in experiment.dataset.all():
+            dataset_id = dataset.id
+            for img in dataset.img_list.all():
+                img_list.append(img)
 
-    #torch_model = TorchModel.objects.filter(id = experiment.torch_model.id)
-    torch_model = None
-    context = {'experiment': experiment,'img_list':img_list,'active_models':torch_model}
+        for torch_model in experiment.torch_model.all():
+            torch_model_id = torch_model.id
+
+        torch_model = TorchModel.objects.filter(id = torch_model_id)
+        dataset = DatasetModel.objects.filter(id = dataset_id)
+
+    context = {'experiment': experiment,'img_list':img_list,'active_models':torch_model, 'datasets':dataset}
     if request.method == 'POST':
         if 'back' in request.POST:
             return redirect('/experiments/')
@@ -100,9 +112,9 @@ def detail_experiment(request, ex_id):
             ExperimentModel.objects.filter(id=ex_id).delete()
             return redirect('/experiments/')
 
-        
-        torch_model = TorchModel.objects.filter(id = experiment.torch_model.id)
-        context.update({'active_models':torch_model})
+        torch_model = TorchModel.objects.filter(id = torch_model_id)
+        dataset = DatasetModel.objects.filter(id = dataset_id)
+        context.update({'active_models':torch_model,'dataset':dataset})
 
     context.update({'nbar':'experiments','logged':True})
     return render(request, 'experiments/detail_experiment.html', context)
@@ -125,7 +137,9 @@ def detail_image(request, ex_id,img_id):
             return redirect(f'/experiments/{ex_id}')
 
         if 'predict' in request.POST:
-            torch_model = get_object_or_404(TorchModel, pk=experiment.torch_model.id)
+            for torch_model in experiment.torch_model.all():
+                id = torch_model.id
+            torch_model = get_object_or_404(TorchModel, pk=id)
             img = get_object_or_404(ImageModel, pk=img_id)
             img_path = img.img_file.path
 
@@ -146,8 +160,7 @@ def detail_image(request, ex_id,img_id):
             XAI_img = ImageModel(filename = fname, img_file = myfile, img_url = uploaded_file_url) 
 
             context.update({'class':pred['class'],'XAI_img':XAI_img})
-
-            context.update({'message':dest_file_path})
+            context.update({'message':{'img_path':img_path,'XAI_path':XAI_path}})
             return render(request, 'experiments/detail_image.html', context)
         if 'XAI' in request.POST:
             message = 'XAI should happen'
@@ -155,6 +168,16 @@ def detail_image(request, ex_id,img_id):
             return render(request, 'experiments/detail_image.html', context)
         if 'refresh' in request.POST:
             return render(request, 'experiments/detail_image.html', context)
+
+        if 'download' in request.POST:
+            img = get_object_or_404(ImageModel, pk=img_id)
+            img_path = img.img_file.path
+            fl = open(img_path, 'rb')
+            mime_type, _ = mimetypes.guess_type(img_path)
+            response = HttpResponse(fl, content_type=mime_type)
+            response['Content-Disposition'] = "attachment; filename=%s" % os.path.split(img_path)[1]
+            return response
+
 
 
     

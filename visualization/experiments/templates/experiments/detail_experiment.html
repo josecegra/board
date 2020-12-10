@@ -6,10 +6,12 @@
  
 {% block content %}
 
+
+
 <form method="post">
   {% csrf_token %}
   <input type="submit" class="btn btn-secondary" name="back" value="Back to experiments"/>
-  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete" onclick="return confirm('Are you sure?')" />
+  <input type="submit" class="btn btn-danger pull-right" name="delete" value="Delete experiment" onclick="return confirm('Are you sure?')" />
 </form>
 
 <h1>Experiment: {{experiment.name}}</h1>
@@ -26,9 +28,11 @@
 
 <h2>Datasets</h2>
 
-{% if experiment.dataset %}
+{% if datasets %}
   <div class="list-group">
-    <a href="/datasets/{{ experiment.dataset.id }}/" class="list-group-item list-group-item-action">{{experiment.dataset.name}} {{experiment.dataset.problem_type}} </a>
+    {% for dataset in datasets %}
+    <a href="/datasets/{{ dataset.id }}/" class="list-group-item list-group-item-action">{{dataset.name}} {{dataset.problem_type}} </a>
+    {% endfor %}
   </div>
 {% endif %}
 
@@ -40,7 +44,14 @@
 {% for img in img_list %}
 <div class="col">
   <a href="{{ img.id }}/">
-      <img src="{{img.img_url}}" alt="asdf" width="224" height="224">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <img class="img-fluid float-left" src="{{img.img_url}}" alt="{{img.filename}}" width="400" >
+        </div>
+      </div>
+    </div>
   </a>
   </div>
   {% if forloop.counter0 == 3 %}
@@ -52,6 +63,7 @@
 </div>
 </div>
 {% endif %}
+
 
 
 {% endblock %}
