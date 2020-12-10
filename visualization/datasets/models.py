@@ -16,6 +16,7 @@ class DatasetModel(models.Model):
 
     name = models.CharField(max_length=255, default = '')
     username = models.CharField(max_length=255, default = '')
+    id = models.AutoField(primary_key=True)
 
     CHOICES = [
     ('none','none'),

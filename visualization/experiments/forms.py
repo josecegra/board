@@ -14,5 +14,11 @@ class ExperimentForm(forms.ModelForm):
     class Meta:
         model = ExperimentModel
         fields = [ 'name','torch_model','dataset','is_public',]
+
+    # torch_model = forms.ModelMultipleChoiceField(
+    #     queryset=TorchModel.objects.all(),
+    #     widget=forms.CheckboxSelectMultiple
+    # )
+
   
 

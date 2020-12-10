@@ -58,6 +58,13 @@ def create_experiment(request):
             obj.is_public = form.cleaned_data['is_public']
             obj.torch_model = form.cleaned_data['torch_model']
             obj.dataset = form.cleaned_data['dataset']
+            #print(form.cleaned_data['torch_model'].endpoint)
+            #obj.torch_model.create(name = 'test')
+            #print(dir(torch_model))
+            #print(torch_model.values)
+            #torch_model.save()
+            #obj.torch_model.set(torch_model)
+            #obj.dataset.set(form.cleaned_data['dataset'])
             if obj.is_public:
                 obj.username = 'public'
             else:
@@ -73,11 +80,18 @@ def create_experiment(request):
 @login_required(login_url='/login/')
 def detail_experiment(request, ex_id):
     experiment = get_object_or_404(ExperimentModel, pk=ex_id)
+    #print(experiment.dataset.all())
+    #dataset_id = experiment.dataset.pk
+
+    #dataset_list = list(experiment.dataset.all())
+    #print(len(dataset_list))
+    
     if experiment:
         img_list = experiment.dataset.img_list.all()
+        #img_list = []
 
-    torch_model = TorchModel.objects.filter(id = experiment.torch_model.id)
-
+    #torch_model = TorchModel.objects.filter(id = experiment.torch_model.id)
+    torch_model = None
     context = {'experiment': experiment,'img_list':img_list,'active_models':torch_model}
     if request.method == 'POST':
         if 'back' in request.POST:
@@ -122,7 +136,7 @@ def detail_image(request, ex_id,img_id):
             XAI_path = pred['XAI_path']
             #move to static
             dest_path = MEDIA_ROOT
-            fname = os.path.split(XAI_path)[1]
+            fname = "XAI_"+os.path.split(XAI_path)[1]
             dest_file_path = os.path.join(dest_path,fname)
             copyfile(XAI_path,dest_file_path)
 

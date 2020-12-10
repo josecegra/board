@@ -16,6 +16,8 @@ class TorchModel(models.Model):
     is_public = models.BooleanField(default=False)
     username = models.CharField(max_length=255, default = '')
 
+    id = models.AutoField(primary_key=True)
+
 
     #api_endpoint = models.CharField(max_length=255, default = '')
     #active = models.BooleanField(default=False)

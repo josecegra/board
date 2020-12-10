@@ -14,28 +14,23 @@
 <p>Experiment: {{experiment.name}}</p>
 <p>model: {{experiment.torch_model.name}}</p>
 
-<div class="container">
-  <div class="column">
-    <div id="img-container">
-      <img src="{{img.img_url}}" alt="{{img.filename}}" width="500" height="600">
-    </div>
+  <div class="row">
+  <div class="column pull-left">
+    <img src="{{img.img_url}}" alt="{{img.filename}}" width="500" height="600">
+      
   </div>
   
   {% if class %}
   <div class="column">
-    <div id="img-container">
-      <img src="{{XAI_img.img_url}}" alt="{{img.filename}}" width="500" height="600">
-    </div>
-
+    <p>{{class}}</p>
+    <img src="{{XAI_img.img_url}}" alt="{{img.filename}}" width="500" height="600">
+      
   </div>
   {% endif %}
 
 </div>
 
 
-{% if message %}
-<p>{{message}}</p>
-{% endif %}
 
 
 <form action="" method="post">

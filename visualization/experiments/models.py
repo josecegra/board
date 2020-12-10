@@ -12,7 +12,8 @@ class ExperimentModel(models.Model):
     torch_model = models.OneToOneField(TorchModel,on_delete=models.CASCADE,null=True,blank=True)
     dataset = models.OneToOneField(DatasetModel,on_delete=models.CASCADE,null=True,blank=True)
 
-    
+    # torch_model = models.ManyToManyField(TorchModel)
+    # dataset = models.ManyToManyField(DatasetModel)   
 
 
     def __str__(self):

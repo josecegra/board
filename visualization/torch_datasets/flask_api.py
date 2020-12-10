@@ -77,7 +77,7 @@ def get_prediction(model,image_bytes,filename):
     if not os.path.exists(images_path):
         os.mkdir(images_path)
     XAI_path = os.path.join(images_path,filename)
-    plt.savefig(XAI_path)
+    fig.savefig(XAI_path)
 
     return str(predicted_idx), class_index_dict[predicted_idx], XAI_path
 
